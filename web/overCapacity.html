@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>装载容量</title>
+  <link rel="stylesheet" href="../css/overCapacity.css">
+    <script src="../js/echarts.min.js"></script>
+    <script src="../bootstrap3/jquery-1.9.1.min.js"></script>
+    <script src="https://cdn.highcharts.com.cn/highcharts/highcharts.js"></script>
+    <script src="../js/overCapacity.js"></script>
+</head>
+<body>
+<div class="mainBox">
+  <div class="top">
+    <div class="topPhoto">
+    </div>
+    <div class="top1">
+      <div class="top1Text">智能环卫垃圾箱“管家”</div>
+    </div>
+    <div class="top2">
+      <div class="top2Text">站点查询</div>
+    </div>
+    <div class="top3">
+      <div class="top3Text">数据分析</div>
+    </div>
+    <div class="top4">
+      <div class="top4Text">解决方案</div>
+    </div>
+    <div class="top5">
+      <div class="top5Text">控制台</div>
+    </div>
+    <div class="searchBox">
+      <div class="rdi"></div>
+      <line class="line"></line>
+      <label>
+        <input type="text"  placeholder ="搜索"  autocomplete ="off" class="inputBox"></input>
+      </label>
+    </div>
+  </div>
+  <div class="capacityText">装载容量</div>
+  <div class="heightText">垃圾箱装载的垃圾量高度。</div>
+  <div class="ovv" id="ovv"  style="cursor: pointer;">
+    <div class="ovvText">总览</div>
+  </div>
+  <div class="dis">
+    <div class="disText">站点分布</div>
+  </div>
+  <div class="cap">
+    <div class="capText">装载容量</div>
+  </div>
+  <div class="con">
+    <div class="conText">气体浓度</div>
+  </div>
+  <div class="state">
+    <div class="stateText">清理状态</div>
+  </div>
+  <div class="downSearchBox">
+    <div class="downRdi"></div>
+    <line class="downLine"></line>
+    <label>
+      <input type="text"  placeholder ="搜索"  autocomplete ="off" class="inputBox"></input>
+    </label>
+  </div>
+  <div class="all1">
+    <div class="all1Text">全部</div>
+  </div>
+  <div class="province">省</div>
+  <div class="all2">
+    <div class="all1Text">全部</div>
+  </div>
+  <div class="town">市</div>
+  <div class="all3">
+    <div class="all1Text">全部</div>
+  </div>
+  <div class="area">区</div>
+  <div class="whiteLeft">
+    <div class="whiteLeft1">
+      <div class="LRF">10%</div>
+    </div>
+    <div class="whiteLeft2">
+      <div class="LRF">30%</div>
+    </div>
+    <div class="whiteLeft3">
+      <div class="LRF">50%</div>
+    </div>
+    <div class="whiteLeft4">
+      <div class="LRF">70%</div>
+    </div>
+    <div class="whiteLeft5">
+      <div class="LRF">90%</div>
+    </div>
+    <div class="whiteLeft6">
+      <div class="LRF">全部</div>
+    </div>
+  </div>
+  <div class="whiteRight">
+    <div class="whiteRight1">
+      <div class="LRF">1H</div>
+    </div>
+    <div class="whiteRight2">
+      <div class="LRF">6H</div>
+    </div>
+    <div class="whiteRight3">
+      <div class="LRF">12H</div>
+    </div>
+    <div class="whiteRight4">
+      <div class="LRF">1H</div>
+    </div>
+    <div class="whiteRight5">
+      <div class="LRF">24H</div>
+    </div>
+    <div class="whiteRight6">
+      <div class="LRF">7D</div>
+    </div>
+    <div class="whiteRight7">
+      <div class="LRF">30D</div>
+    </div>
+    <div class="whiteRight8">
+      <div class="LRF">全部</div>
+    </div>
+  </div>
+  <div class="downWhite">
+    <div class="mapPhoto" id="container" ></div>
+  </div>
+</div>
+<script>
+    var chart = Highcharts.chart('container',{
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: '月平均降雨量'
+        },
+        subtitle: {
+            text: '数据来源: WorldClimate.com'
+        },
+        xAxis: {
+            categories: [
+                '龙桥社区','二月','三月','四月','五月','六月','七月','八月','九月','十月','十一月','十二月'
+            ],
+            crosshair: true
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: '降雨量 (mm)'
+            }
+        },
+        tooltip: {
+            // head + 每个 point + footer 拼接成完整的 table
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+        },
+        plotOptions: {
+            column: {
+                borderWidth: 0
+            }
+        },
+        series: [{
+            name: '30%',
+            data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
+        }, {
+            name: '70%',
+            data: [83.6, 78.8, 98.5, 93.4, 106.0, 84.5, 105.0, 104.3, 91.2, 83.5, 106.6, 92.3]
+        }, {
+            name: '90%',
+            data: [48.9, 38.8, 39.3, 41.4, 47.0, 48.3, 59.0, 59.6, 52.4, 65.2, 59.3, 51.2]
+        }]
+    });
+</script>
+</body>
+</html>

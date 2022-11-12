@@ -1,3 +1,14 @@
+.mainBox{
+    box-sizing: border-box;
+
+    margin: 200px auto;
+    position: relative;
+    width: 1728px;
+    height: 1122px;
+
+    background: rgba(208, 225, 184, 0.5);
+    border: 1px solid #000000;
+}
 .top{
     box-sizing: border-box;
 
@@ -16,8 +27,7 @@
     height: 1003px;
     left: 0px;
     top: 119px;
-    background: url(../images/img.jpg) center;
-    background-size: contain;
+
 
 }
 .topPhoto{
@@ -265,6 +275,7 @@
     left: 1349px;
     box-sizing: border-box;
 
+
     /* Auto layout */
 
     display: flex;
@@ -298,14 +309,35 @@
 }
 .line{
     position: absolute;
-    width: 6.12px;
+    width: 0px;
     height: 22.27px;
-    left: 47px;
-    top: 30.28px;
-
-    border: 1px solid #868C9F;
-    transform: matrix(0.74, -0.68, -0.68, -0.74, 0, 0);
+    left: 56.05px;
+    top: 28.83px;
+    transform: rotate(120deg);
+    text-align: center;
+    border: 0.5px solid #868C9F;
 }
 .inputBox{
+    position: absolute;
+    top: 10px;
+    left: 82px;
+    outline: none;
+    width: 72%;
+    height: 44px;
+    color: #868C9F;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 36px;
+    line-height: 44px;
+    /* identical to box height */
+    border: none;
 
+
+
+    /* Inside auto layout */
+
+    flex: none;
+    order: 1;
+    flex-grow: 0;
 }

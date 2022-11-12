@@ -8,5 +8,11 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="vue" level="application" />
+    <orderEntry type="library" name="highcharts" level="application" />
+    <orderEntry type="library" name="exporting" level="application" />
+    <orderEntry type="library" name="series-label" level="application" />
+    <orderEntry type="library" name="oldie" level="application" />
+    <orderEntry type="library" name="highcharts-zh_CN" level="application" />
   </component>
 </module>

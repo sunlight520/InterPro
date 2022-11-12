@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <link rel="stylesheet" href="../css/siteQuery.css">
+    <script src="../bootstrap3/jquery-1.9.1.min.js"></script>
+
+    <title>站点查询</title>
+  <!--引用百度地图API-->
+  <script type="text/javascript" src="//api.map.baidu.com/api?type=webgl&v=1.0&ak=203HIKE3G7Pwe2SojHzeEyAfQFa8lL9y"></script>
+</head>
+
+<body>
+<!--百度地图容器-->
+<div class="mainBox">
+  <div class="top">
+    <div class="topPhoto">
+    </div>
+    <div class="top1">
+      <div class="top1Text">智能环卫垃圾箱“管家”</div>
+    </div>
+    <div class="top2">
+      <div class="top2Text">站点查询</div>
+    </div>
+    <div class="top3">
+      <div class="top3Text">数据分析</div>
+    </div>
+    <div class="top4">
+      <div class="top4Text">解决方案</div>
+    </div>
+    <div class="top5">
+      <div class="top5Text">控制台</div>
+    </div>
+    <div class="searchBox">
+      <div class="rdi"></div>
+      <line class="line"></line>
+      <label>
+        <input type="text"  placeholder ="搜索"  autocomplete ="off" class="inputBox"></input>
+      </label>
+    </div>
+  </div>
+  <div class="downSearchBox">
+    <div class="downRdi"></div>
+    <line class="downLine"></line>
+    <label>
+      <input type="text"  placeholder ="搜索"  autocomplete ="off" class="downInputBox"></input>
+    </label>
+  </div>
+  <div class="all1">
+    <div class="all1Text">全部</div>
+  </div>
+  <div class="province">省</div>
+  <div class="all2">
+    <div class="all1Text">全部</div>
+  </div>
+  <div class="town">市</div>
+  <div class="all3">
+    <div class="all1Text">全部</div>
+  </div>
+  <div class="area">区</div>
+  <div class="green"></div>
+  <div class="gText">未过量装载</div>
+  <div class="red"></div>
+  <div class="rText">已过量装载</div>
+  <div class="yellow"></div>
+  <div class="yText">24H内清除/有异味</div>
+  <div class="mapMove" id="map"></div>
+<!--    <iframe src="siteQuery.html" class="mapPhoto" frameborder="0" scrolling="no"></iframe>-->
+<!--  <div class="mapPhoto"></div>-->
+</div>
+</body>
+<script type="text/javascript">
+  //创建和初始化地图函数：
+  $.ajax(
+      {
+          url: `../data/data03.json`,
+          type: "GET",
+          dataType: "json",
+          async: true,
+          success: function (data) {
+              let greenMarkers = data.data[0];
+              let redMarkers = data.data[1];
+              let yellowMarkers = data.data[2];
+              function addMarker(){
+                  var map = new BMapGL.Map('map');
+                  map.centerAndZoom(new BMapGL.Point(119.014521,25.459865), 15);
+                  map.enableScrollWheelZoom(true);
+                  // 创建点标记
+                  // var marker = new BMapGL.Marker(new BMapGL.Point(119.014521,25.459865));
+                  // 创建Marker标注，使用小车图标
+                  // var pt = new BMapGL.Point(119.014521,25.459865);
+                  for (var i=0;i<greenMarkers.length;i++){
+                      var greenMarker = new BMapGL.Marker(new BMapGL.Point(greenMarkers[i].x,greenMarkers[i].y), {
+                          icon: new BMapGL.SVGSymbol(BMapGL.SymbolShapeType.BMap_Symbol_SHAPE_CIRCLE,
+                              { fillColor: '#31B446', fillOpacity: 0.6, scale: 5, anchor: new BMapGL.Size(0, 5),strokeOpacity:0
+                              })
+                      });
+                      map.addOverlay(greenMarker)
+                  }
+                  for (var i=0;i<redMarkers.length;i++){
+                      var redMarker = new BMapGL.Marker(new BMapGL.Point(redMarkers[i].x,redMarkers[i].y), {
+                          icon: new BMapGL.SVGSymbol(BMapGL.SymbolShapeType.BMap_Symbol_SHAPE_CIRCLE,
+                              { fillColor: 'rgba(255,7,7,0.94)', fillOpacity: 0.6, scale: 5, anchor: new BMapGL.Size(0, 5),strokeOpacity:0
+                              })
+                      });
+                      map.addOverlay(redMarker)
+                  }
+                  for (var i=0;i<yellowMarkers.length;i++){
+                      var yellowMarker = new BMapGL.Marker(new BMapGL.Point(yellowMarkers[i].x,yellowMarkers[i].y), {
+                          icon: new BMapGL.SVGSymbol(BMapGL.SymbolShapeType.BMap_Symbol_SHAPE_CIRCLE,
+                              { fillColor: 'rgba(242,207,19,0.99)', fillOpacity: 0.6, scale: 5, anchor: new BMapGL.Size(0, 5),strokeOpacity:0
+                              })
+                      });
+                      map.addOverlay(yellowMarker)
+                  }
+                  // var pt1 = new BMapGL.Point(markes[0].x,markes[0].y);
+                  // var pt2 = new BMapGL.Point(markes[1].x,markes[1].y);
+                  // console.log(markes[1].x,markes[1].y)
+                  // var marker1 = new BMapGL.Marker(pt1, {
+                  //     icon: myIcon
+                  // });
+                  // var marker2 = new BMapGL.Marker(pt2, {
+                  //     icon: myIcon
+                  // });
+                  //
+                  // // 在地图上添加点标点
+                  // map.addOverlay(marker1);
+                  // map.addOverlay(marker2);
+              }
+              function initMap(){
+                  addMarker()
+              }
+              initMap();
+          },
+          error:function () {
+              alert("request failed !")
+          }
+      }
+  )
+</script>
+
+  // function setMapEvent(){
+  //   map.enableScrollWheelZoom();
+  //   map.enableKeyboard();
+  //   map.enableDragging();
+  //   map.enableDoubleClickZoom()
+  // }
+  // function addClickHandler(target,window){
+  //   target.addEventListener("click",function(){
+  //     target.openInfoWindow(window);
+  //   });
+  // }
+  // function addMapOverlay(){
+  // }
+  //向地图添加控件
+  // function addMapControl(){
+  //   var scaleControl = new BMap.ScaleControl({anchor:BMAP_ANCHOR_BOTTOM_LEFT});
+  //   scaleControl.setUnit(BMAP_UNIT_IMPERIAL);
+  //   map.addControl(scaleControl);
+  //   var navControl = new BMap.NavigationControl({anchor:BMAP_ANCHOR_TOP_LEFT,type:BMAP_NAVIGATION_CONTROL_LARGE});
+  //   map.addControl(navControl);
+  //   var overviewControl = new BMap.OverviewMapControl({anchor:BMAP_ANCHOR_BOTTOM_RIGHT,isOpen:true});
+  //   map.addControl(overviewControl);
+  // }
+  // function addMarker(){
+  //     //创建并初始化MultiMarker
+  //
+  // };
+
+</html>
